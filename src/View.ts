@@ -209,20 +209,23 @@ export class View {
                     "transform":[
                         {"translate":[0,50,0]}
                     ],
-                    "child": 
-                    {
-                        "type":"group",
-                        "children":[${this.objectJson("cylinder", [10, 5, -10], [1, 1, 1])},
-                            {
-                                "type":"transform",
-                                "name":"cone-obj1",
-                                "transform":[
-                                    {"translate":[0,2.5,0]}
-                                ],
-                                "child": ${this.objectJson("cone", [10, 10, -10], [1, 0, 1])}
-                            }
-                        ]
-                    }
+                    "child": ${this.drawMinaret([10, 5, -10], [1, 1, 1], [10, 10, -10], [1, 0, 1])}
+                }
+            ]
+        }`
+    }
+
+    private drawMinaret(cylinderScale: number[], cylinderColor: number[], coneScale: number[], coneColor: number[]) {
+        return `{
+            "type":"group",
+            "children":[${this.objectJson("cylinder", cylinderScale, cylinderColor)},
+                {
+                    "type":"transform",
+                    "name":"cone-obj1",
+                    "transform":[
+                        {"translate":[0,${cylinderScale[1] / 2},0]}
+                    ],
+                    "child": ${this.objectJson("cone", coneScale, coneColor)}
                 }
             ]
         }`
