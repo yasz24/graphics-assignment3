@@ -189,7 +189,7 @@ export class View {
             "root":
             {
                 "type":"group",
-                "children":[${this.object1()}]
+                "children":[${this.object5()}]
 
             }
         }
@@ -215,15 +215,45 @@ export class View {
         }`
     }
 
-    private drawMinaret(cylinderScale: number[], cylinderColor: number[], coneScale: number[], coneColor: number[]) {
+    private object5(): string {
+        return `
+        {
+            "type":"group",
+            "children":[${this.objectJson("box", [25, 20, -25], [0.5, 0.5, 0.5])},
+                {
+                    "type":"transform",
+                    "name":"cylinder-obj5",
+                    "transform":[
+                        {"translate":[0,20,0]}
+                    ],
+                    "child": 
+                    {
+                        "type":"group",
+                        "children":[${this.objectJson("cylinder", [22, 25, -22], [1, 0, 0])},
+                        {
+                            "type":"transform",
+                            "name":"mainMinaret-obj5",
+                            "transform":[
+                                {"translate":[0,12.5,0]}
+                            ],
+                            "child": ${this.drawMinaret([20, 40, -20], [1, 1, 1], [20, 20, -20], [1, 0, 1])}
+                        }
+                        ]
+                    }
+                }
+            ]
+        }`
+    }
+
+    private drawMinaret(cylinderScale: number[], cylinderColor: number[], coneScale: number[], coneColor: number[]): string {
         return `{
             "type":"group",
-            "children":[${this.objectJson("cylinder", cylinderScale, cylinderColor)},
+            "children":[${this.objectJson("box", cylinderScale, cylinderColor)},
                 {
                     "type":"transform",
                     "name":"cone-obj1",
                     "transform":[
-                        {"translate":[0,${cylinderScale[1] / 2},0]}
+                        {"translate":[0,${cylinderScale[1]},0]}
                     ],
                     "child": ${this.objectJson("cone", coneScale, coneColor)}
                 }
@@ -232,21 +262,30 @@ export class View {
     }
 
     private objectJson (type: string, scale: number[], color: number[]): string {
-        let addToHeight: number = scale[1] / 2
+        let addToHeight: number = 0;
+        if (type === "box") {
+            addToHeight = scale[1] / 2;
+        }
         return `
             {
                 "type":"transform",
                 "transform":[
-                    {"translate":[0,${addToHeight},0]},
-                    {"scale":[${scale[0]}, ${scale[1]}, ${scale[2]}]}
+                    {"translate":[0,${addToHeight},0]}
                 ],
                 "child": {
-                    "type":"object",
-                    "instanceof":"${type}",
-                    "material": {
-                        "color":[${color[0]}, ${color[1]}, ${color[2]}]
-                    }
-                }
+                            "type":"transform",
+                            "transform":[
+                                {"scale":[${scale[0]}, ${scale[1]}, ${scale[2]}]}
+                            ],
+                            "child": 
+                                {
+                                    "type":"object",
+                                    "instanceof":"${type}",
+                                    "material": {
+                                        "color":[${color[0]}, ${color[1]}, ${color[2]}]
+                                    }
+                                }
+                        }
             }`
     } 
 
