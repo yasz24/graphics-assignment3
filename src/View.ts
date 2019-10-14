@@ -198,19 +198,11 @@ export class View {
 
     }
 
-    private object1 () {
+    private object1 (): string {
         return `
         {
             "type":"group",
-            "children":[
-                {
-                    "type":"transform",
-                    "name":"cylinder-obj1",
-                    "transform":[
-                        {"translate":[0,25,0]}
-                    ],
-                    "child": ${this.objectJson("box", [10, 50, -10], [0.5, 0.5, 0.5])}
-                },
+            "children":[${this.objectJson("box", [10, 50, -10], [0.5, 0.5, 0.5])},
                 {
                     "type":"transform",
                     "name":"cylinder-obj1",
@@ -220,29 +212,16 @@ export class View {
                     "child": 
                     {
                         "type":"group",
-                        "children":[
-                        {
-                            "type":"transform",
-                            "name":"cylinder-obj1",
-                            "transform":[
-                                {"translate":[0,2.5,0]}
-                            ],
-                            "child": 
+                        "children":[${this.objectJson("cylinder", [10, 5, -10], [1, 1, 1])},
                             {
-                                "type":"group",
-                                "children":[
-                                    ${this.objectJson("cylinder", [10, 5, -10], [1, 1, 1])},
-                                    {
-                                        "type":"transform",
-                                        "name":"cone-obj1",
-                                        "transform":[
-                                            {"translate":[0,5,0]}
-                                        ],
-                                        "child": ${this.objectJson("cone", [10, 10, -10], [1, 0, 1])}
-                                    }
-                                ]
+                                "type":"transform",
+                                "name":"cone-obj1",
+                                "transform":[
+                                    {"translate":[0,2.5,0]}
+                                ],
+                                "child": ${this.objectJson("cone", [10, 10, -10], [1, 0, 1])}
                             }
-                        }]
+                        ]
                     }
                 }
             ]
@@ -250,10 +229,12 @@ export class View {
     }
 
     private objectJson (type: string, scale: number[], color: number[]): string {
+        let addToHeight: number = scale[1] / 2
         return `
             {
                 "type":"transform",
                 "transform":[
+                    {"translate":[0,${addToHeight},0]},
                     {"scale":[${scale[0]}, ${scale[1]}, ${scale[2]}]}
                 ],
                 "child": {
