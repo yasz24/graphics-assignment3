@@ -227,7 +227,21 @@ export class View {
                             "transform":[
                                 {"translate":[0,2.5,0]}
                             ],
-                            "child": ${this.objectJson("cylinder", [10, 5, -10], [1, 1, 1])}
+                            "child": 
+                            {
+                                "type":"group",
+                                "children":[
+                                    ${this.objectJson("cylinder", [10, 5, -10], [1, 1, 1])},
+                                    {
+                                        "type":"transform",
+                                        "name":"cone-obj1",
+                                        "transform":[
+                                            {"translate":[0,5,0]}
+                                        ],
+                                        "child": ${this.objectJson("cone", [10, 10, -10], [1, 0, 1])}
+                                    }
+                                ]
+                            }
                         }]
                     }
                 }
