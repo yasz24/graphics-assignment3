@@ -189,7 +189,26 @@ export class View {
             "root":
             {
                 "type":"group",
-                "children":[${this.object5()}]
+                "children":[${this.drawObject1()}, ${this.drawObject2()}, ${this.drawObject3()}, 
+                    ${this.drawObject4()}, ${this.drawObject5()}, ${this.drawObject6()}, 
+                    ${this.drawObject7()}, 
+                    ${this.drawObject8()},
+                    ${this.drawObject9()},
+                    ${this.drawObject10()},
+                    ${this.drawObject11()},
+                    ${this.drawObject12()},
+                    ${this.drawObject13()},
+                    ${this.drawObject14()},
+                    ${this.drawObject15()},
+                    ${this.drawObject16()},
+                    ${this.drawObject17()},
+                    ${this.drawObject18()},
+                    ${this.drawObject19()},
+                    ${this.drawObject20()},
+                    ${this.drawObject21()},
+                    ${this.drawObject22()},
+                    ${this.drawObject23()},
+                    ${this.drawObject24()}]
 
             }
         }
@@ -198,28 +217,403 @@ export class View {
 
     }
 
-    private object1 (): string {
+    private drawObject1(): string {
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj1",
+                "transform":[
+                    {"translate":[5,0,-5]}
+                ],
+                "child": ${this.drawObject1Type(1)}
+            }
+        `
+    }
+
+    private drawObject2(): string {
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj2",
+                "transform":[
+                    {"translate":[20,0,-5]}
+                ],
+                "child": ${this.drawObject1Type(2)}
+            }
+        `
+    }
+
+    private drawObject3(): string {
+        let scale: number[] = [15, 20, -35]
+        let color: number[] = [153 / 255, 217 / 255, 234 / 255]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj3",
+                "transform":[
+                    {"translate":[12.5,0,-27.5]}
+                ],
+                "child": ${this.objectJson("box",scale, color, 3)}
+            }
+        ` 
+    }
+
+    private drawObject4(): string {
+        let scale: number[] = [20, 20, -35]
+        let color: number[] = [0.5, 0, 0.5]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj4",
+                "transform":[
+                    {"translate":[30,0,-27.5]}
+                ],
+                "child": ${this.objectJson("box",scale, color, 4)}
+            }
+        ` 
+    }
+
+    private drawObject5(): string {
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj5",
+                "transform":[
+                    {"translate":[12.5, 0, -57.5]}
+                ],
+                "child": ${this.object5()}
+            }
+        ` 
+    }
+
+    private drawObject6(): string {
+        let scale: number[] = [50, 20, -10]
+        let color: number[] = [1, 1, 0]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj6",
+                "transform":[
+                    {"translate":[50,0,-50]}
+                ],
+                "child": ${this.objectJson("box",scale, color, 6)}
+            }
+        ` 
+    }
+
+    private drawObject7(): string {
+        let scale: number[] = [15, 20, -20]
+        let color: number[] = [1, 0, 0]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj7",
+                "transform":[
+                    {"translate":[47.5,0,-35]}
+                ],
+                "child": ${this.objectJson("box",scale, color, 7)}
+            }
+        ` 
+    }
+
+    private drawObject8(): string {
+        let boxScale: number[] = [15,50, -15]
+        let boxColor: number[] = [0.5, 0.5, 0.5]
+        let cylinderScale: number[] = [15, 10, -15]
+        let cylinderColor: number[] = [1, 1, 1]
+        let coneScale: number[] = [15, 10, -15]
+        let coneColor: number[] = [170 / 255, 130 / 255, 51 / 255]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj8",
+                "transform":[
+                    {"translate":[47.5,0,-17.5]}
+                ],
+                "child": ${this.boxPlusMinaret(boxScale, boxColor, cylinderScale, cylinderColor, coneScale, coneColor, 8)}
+            }
+        `
+    }
+
+    private drawObject9(): string {
+        let scale: number[] = [15, 20, -10]
+        let color: number[] = [1, 1, 0]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj9",
+                "transform":[
+                    {"translate":[32.5,0,-5]}
+                ],
+                "child": ${this.objectJson("box",scale, color, 9)}
+            }
+        ` 
+    }
+
+    private drawObject10(): string {
+        let scale: number[] = [10, 20, -35]
+        let color: number[] = [153 / 255, 217 / 255, 234 / 255]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj10",
+                "transform":[
+                    {"translate":[60,0,-27.5]}
+                ],
+                "child": ${this.objectJson("box",scale, color, 10)}
+            }
+        ` 
+    }
+    
+    private drawObject11(): string {
+        let scale: number[] = [10, 20, -15]
+        let color: number[] = [1, 0, 0]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj11",
+                "transform":[
+                    {"translate":[70,0,-27.5]}
+                ],
+                "child": ${this.objectJson("box",scale, color, 11)}
+            }
+        ` 
+    }
+
+    private drawObject12(): string {
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj12",
+                "transform":[
+                    {"translate":[70,0,-40]}
+                ],
+                "child": ${this.drawObject1Type(12)}
+            }
+        `
+    }
+
+    private drawObject13(): string {
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj13",
+                "transform":[
+                    {"translate":[70,0,-15]}
+                ],
+                "child": ${this.drawObject1Type(13)}
+            }
+        `
+    }
+
+    private drawObject14(): string {
+        let scale: number[] = [10, 20, -35]
+        let color: number[] = [153 / 255, 217 / 255, 234 / 255]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj14",
+                "transform":[
+                    {"translate":[80,0,-27.5]}
+                ],
+                "child": ${this.objectJson("box",scale, color, 14)}
+            }
+        ` 
+    }
+
+    private drawObject15(): string {
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj15",
+                "transform":[
+                    {"translate":[80,0,-50]}
+                ],
+                "child": ${this.drawObject1Type(15)}
+            }
+        `
+    }
+
+    private drawObject16(): string {
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj16",
+                "transform":[
+                    {"translate":[80,0,-5]}
+                ],
+                "child": ${this.drawObject1Type(16)}
+            }
+        `
+    }
+
+    private drawObject17(): string {
+        let scale: number[] = [36, 20, -10]
+        let color: number[] = [1, 0, 0]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj17",
+                "transform":[
+                    {"translate":[103,0,-27]}
+                ],
+                "child": ${this.objectJson("box",scale, color, 17)}
+            }
+        ` 
+    }
+
+    private drawObject18(): string {
+        let scale: number[] = [20, 20, -10]
+        let color: number[] = [1, 0, 0]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj18",
+                "transform":[
+                    {"translate":[95,0,-50]}
+                ],
+                "child": ${this.objectJson("box",scale, color, 18)}
+            }
+        ` 
+    }
+
+    private drawObject19(): string {
+        let cylinderScale: number[] = [25, 40, -25]
+        let cylinderColor: number[] = [1, 1, 1]
+        let coneScale: number[] = [25, 50, -25]
+        let coneColor: number[] = [170 / 255, 130 / 255, 51 / 255]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj19",
+                "transform":[
+                    {"translate":[113,0,-50]}
+                ],
+                "child": ${this.drawMinaret(cylinderScale, cylinderColor, coneScale, coneColor, 19)}
+            }
+        ` 
+    }
+
+    private drawObject20(): string {
+        let scale: number[] = [20, 20, -10]
+        let color: number[] = [1, 0, 0]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj20",
+                "transform":[
+                    {"translate":[131,0,-50]}
+                ],
+                "child": ${this.objectJson("box",scale, color, 20)}
+            }
+        ` 
+    }
+
+    private drawObject21(): string {
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj21",
+                "transform":[
+                    {"translate":[136,0,-42]}
+                ],
+                "child": ${this.drawObject1Type(21)}
+            }
+        `
+    }
+
+    private drawObject22(): string {
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj21",
+                "transform":[
+                    {"translate":[126,0,-27]}
+                ],
+                "child": ${this.drawObject1Type(22)}
+            }
+        `
+    }
+    
+    private drawObject23(): string {
+        let scale: number[] = [10, 20, -15]
+        let color: number[] = [1, 0, 0]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj20",
+                "transform":[
+                    {"translate":[136,0,-29.5]}
+                ],
+                "child": ${this.objectJson("box",scale, color, 23)}
+            }
+        ` 
+    }
+
+    private drawObject24(): string {
+        let scale: number[] = [5, 20, -10]
+        let color: number[] = [1, 0, 0]
+        return `
+            {
+                "type":"transform",
+                "name":"place-obj20",
+                "transform":[
+                    {"translate":[12.5,0,-5]}
+                ],
+                "child": ${this.objectJson("box",scale, color, 24)}
+            }
+        ` 
+    }
+    
+
+
+
+
+    private drawObject1Type(objNum: number): string {
+        let boxScale: number[] = [10,50, -10]
+        let boxColor: number[] = [0.5, 0.5, 0.5]
+        let cylinderScale: number[] = [10, 5, -10]
+        let cylinderColor: number[] = [1, 1, 1]
+        let coneScale: number[] = [10, 10, -10]
+        let coneColor: number[] = [170 / 255, 130 / 255, 51 / 255]
+        return this.boxPlusMinaret(boxScale, boxColor, cylinderScale, cylinderColor, coneScale, coneColor, objNum);
+    }
+
+    private boxPlusMinaret (boxScale: number[], boxColor: number[], cylinderScale: number[], cylinderColor: number[], 
+        coneScale: number[], coneColor: number[], objNum: number): string {
         return `
         {
             "type":"group",
-            "children":[${this.objectJson("box", [10, 50, -10], [0.5, 0.5, 0.5])},
+            "children":[${this.objectJson("box", boxScale, boxColor, objNum)},
                 {
                     "type":"transform",
-                    "name":"cylinder-obj1",
+                    "name":"cylinder-obj${objNum}",
                     "transform":[
                         {"translate":[0,50,0]}
                     ],
-                    "child": ${this.drawMinaret([10, 5, -10], [1, 1, 1], [10, 10, -10], [1, 0, 1])}
+                    "child": ${this.drawMinaret(cylinderScale, cylinderColor, coneScale, coneColor, objNum)}
                 }
             ]
         }`
     }
 
     private object5(): string {
+        let baseScale: number[] = [25, 20, -25]
+        let baseColor: number[] = [0.5, 0.5, 0.5]
+        let towerScale: number[] = [22, 25, -22]
+        let towerColor: number[] = [1, 0, 0]
+        let bigMinCylScale: number[] = [20, 40, -20]
+        let bigMinCylColor: number[] = [1, 1, 1]
+        let bigMinConeScale: number[] = [20, 20, -20]
+        let bigMinConeColor: number[] = [1, 0, 1]
+        let smallMinCylScale: number[] = [8, 30, -8]
+        let smallMinCylColor: number[] = [0.5, 0.5, 0.5]
+        let smallMinConeScale: number[] = [8, 10, -8]
+        let smallMinConeColor: number[] = [1, 0, 1]
         return `
         {
             "type":"group",
-            "children":[${this.objectJson("box", [25, 20, -25], [0.5, 0.5, 0.5])},
+            "children":[${this.objectJson("box", baseScale, baseColor, 5)},
                 {
                     "type":"transform",
                     "name":"cylinder-obj5",
@@ -229,46 +623,46 @@ export class View {
                     "child": 
                     {
                         "type":"group",
-                        "children":[${this.objectJson("cylinder", [22, 25, -22], [1, 0, 0])},
+                        "children":[${this.objectJson("cylinder", towerScale, towerColor, 5)},
                         {
                             "type":"transform",
                             "name":"mainMinaret-obj5",
                             "transform":[
                                 {"translate":[0,12.5,0]}
                             ],
-                            "child": ${this.drawMinaret([20, 40, -20], [1, 1, 1], [20, 20, -20], [1, 0, 1])}
+                            "child": ${this.drawMinaret(bigMinCylScale, bigMinCylColor, bigMinConeScale, bigMinConeColor, 5)}
                         },
                         {
                             "type":"transform",
                             "name":"mini-Minaret1-obj5",
                             "transform":[
-                                {"translate":[10,10,0]}
+                                {"translate":[${bigMinCylScale[0] / 2}, 10, 0]}
                             ],
-                            "child": ${this.drawMinaret([8, 30, -8], [0.5, 0.5, 0.5], [8, 10, -8], [1, 0, 1])}
+                            "child": ${this.drawMinaret(smallMinCylScale, smallMinCylColor, smallMinConeScale, smallMinConeColor, 5)}
                         },
                         {
                             "type":"transform",
                             "name":"mini-Minaret2-obj5",
                             "transform":[
-                                {"translate":[0,10,-10]}
+                                {"translate":[0,10,${-bigMinCylScale[0] / 2}]}
                             ],
-                            "child": ${this.drawMinaret([8, 30, -8], [0.5, 0.5, 0.5], [8, 10, -8], [1, 0, 1])}
+                            "child": ${this.drawMinaret(smallMinCylScale, smallMinCylColor, smallMinConeScale, smallMinConeColor, 5)}
                         },
                         {
                             "type":"transform",
                             "name":"mini-Minaret1-obj5",
                             "transform":[
-                                {"translate":[-10,10,0]}
+                                {"translate":[${-bigMinCylScale[0] / 2},10,0]}
                             ],
-                            "child": ${this.drawMinaret([8, 30, -8], [0.5, 0.5, 0.5], [8, 10, -8], [1, 0, 1])}
+                            "child": ${this.drawMinaret(smallMinCylScale, smallMinCylColor, smallMinConeScale, smallMinConeColor, 5)}
                         },
                         {
                             "type":"transform",
                             "name":"mini-Minaret1-obj5",
                             "transform":[
-                                {"translate":[0,10,10]}
+                                {"translate":[0,10,${bigMinCylScale[0] / 2}]}
                             ],
-                            "child": ${this.drawMinaret([8, 30, -8], [0.5, 0.5, 0.5], [8, 10, -8], [1, 0, 1])}
+                            "child": ${this.drawMinaret(smallMinCylScale, smallMinCylColor, smallMinConeScale, smallMinConeColor, 5)}
                         }
                         ]
                     }
@@ -277,23 +671,24 @@ export class View {
         }`
     }
 
-    private drawMinaret(cylinderScale: number[], cylinderColor: number[], coneScale: number[], coneColor: number[]): string {
+
+    private drawMinaret(cylinderScale: number[], cylinderColor: number[], coneScale: number[], coneColor: number[], objNum: number): string {
         return `{
             "type":"group",
-            "children":[${this.objectJson("cylinder", cylinderScale, cylinderColor)},
+            "children":[${this.objectJson("cylinder", cylinderScale, cylinderColor, objNum)},
                 {
                     "type":"transform",
-                    "name":"cone-obj1",
+                    "name":"cone-obj${objNum}",
                     "transform":[
                         {"translate":[0,${cylinderScale[1]},0]}
                     ],
-                    "child": ${this.objectJson("cone", coneScale, coneColor)}
+                    "child": ${this.objectJson("cone", coneScale, coneColor, objNum)}
                 }
             ]
         }`
     }
 
-    private objectJson (type: string, scale: number[], color: number[]): string {
+    private objectJson (type: string, scale: number[], color: number[], objNum: number): string {
         let normalizeCenter = 0.25;
         let normalizeYscale = 2
         if (type === "box") {
@@ -302,6 +697,7 @@ export class View {
         }
         return `{
             "type":"transform",
+            "name":"${type}-obj${objNum}",
             "transform":[
                 {"scale":[${scale[0]}, ${normalizeYscale * scale[1]}, ${scale[2]}]},
                 {"translate":[0,${normalizeCenter},0]}
@@ -315,28 +711,6 @@ export class View {
             }
             
         }`
-        
-        // `
-        //     {
-        //         "type":"transform",
-        //         "transform":[
-        //             {"translate":[0,${addToHeight},0]}
-        //         ],
-        //         "child": {
-        //                     "type":"transform",
-        //                     "transform":[
-        //                         {"scale":[${scale[0]}, ${scale[1]}, ${scale[2]}]}
-        //                     ],
-        //                     "child": 
-        //                         {
-        //                             "type":"object",
-        //                             "instanceof":"${type}",
-        //                             "material": {
-        //                                 "color":[${color[0]}, ${color[1]}, ${color[2]}]
-        //                             }
-        //                         }
-        //                 }
-        //     }`
     } 
 
     
@@ -556,8 +930,8 @@ export class View {
          */
         this.modelview.push(mat4.create());
         this.modelview.push(mat4.clone(this.modelview.peek()));
-        mat4.lookAt(this.modelview.peek(), vec3.fromValues(100, 100, 160), vec3.fromValues(0, 0, 0), vec3.fromValues(0, 1, 0));
-        //mat4.lookAt(this.modelview.peek(), vec3.fromValues(0, 100, 0), vec3.fromValues(0, 0, 0), vec3.fromValues(0, 0, -1));
+        mat4.lookAt(this.modelview.peek(), vec3.fromValues(105, 140, 120), vec3.fromValues(80, 20, -27.5), vec3.fromValues(0, 1, 0));
+        //mat4.lookAt(this.modelview.peek(), vec3.fromValues(80, 100, -27.5), vec3.fromValues(80, 0, -27.5), vec3.fromValues(0, 0, -1));
 
         this.gl.uniformMatrix4fv(this.shaderLocations.getUniformLocation("proj"), false, this.proj);
 
