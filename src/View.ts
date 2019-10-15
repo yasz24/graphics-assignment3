@@ -16,6 +16,13 @@ import { Material } from "%COMMON/Material";
 import { GroupNode } from "./GroupNode";
 
 
+enum ViewType {
+    Front,
+    BirdsEye,
+    TurnTable
+}
+
+
 /**
  * This class encapsulates the "view", where all of our WebGL code resides. This class, for now, also stores all the relevant data that is used to draw. This can be replaced with a more formal Model-View-Controller architecture with a bigger application.
  */
@@ -38,6 +45,10 @@ export class View {
 
     private time: number;
 
+    private radius: number;
+
+    private viewType: ViewType;
+
     constructor(gl: WebGLRenderingContext) {
         this.gl = gl;
         this.time = 0;
@@ -52,6 +63,25 @@ export class View {
 
         //We must also specify "where" the above part of the virtual world will be shown on the actual canvas on screen. This part of the screen where the above drawing gets pasted is called the "viewport", which we set here. The origin of the viewport is left,bottom. In this case we want it to span the entire canvas, so we start at (0,0) with a width and height of 400 each (matching the dimensions of the canvas specified in HTML)
         this.gl.viewport(0, 0, 400, 400);
+        this.radius = 100;
+        this.viewType = ViewType.Front;
+        let self = this;
+        document.addEventListener("keydown", function(event){
+            switch (event.key) {
+                case 't':
+                    self.viewType =  ViewType.TurnTable
+                    break;
+                case 'f':
+                    self.viewType =  ViewType.Front
+                    break;
+                case 'o':
+                    self.viewType =  ViewType.BirdsEye
+                    break;
+                default:
+                    break;
+                
+            }
+        } );
     }
 
 
@@ -126,46 +156,10 @@ export class View {
             });
         //set it up
 
-
     }
 
     //a JSON representation of a jack-in-the-box
     private json2(): string {
-
-        // return `{
-        //     "instances": [
-        //         {
-        //             "name":"sphere",
-        //             "path":"models/sphere.obj"
-        //         },
-        //         {
-        //             "name":"box",
-        //             "path":"models/box.obj"
-        //         },
-        //         {
-        //             "name":"cylinder",
-        //             "path":"models/cylinder.obj"
-        //         },
-        //         {
-        //             "name":"cone",
-        //             "path":"models/cone.obj"
-        //         }
-        //     ],
-        //     "root": {
-        //         "type":"transform",
-        //         "name":"actualface",
-        //         "transform":[
-        //             {"scale":[15,20,35]}
-        //         ],
-        //         "child": {
-        //             "type": "object",
-        //             "name": "boxnode",
-        //             "instanceof": "box",
-        //             "material": {
-        //                 "color": [1,0,0]
-        //             }
-        //         }
-        //     }`;
         return `
         {
             "instances": [
@@ -930,8 +924,23 @@ export class View {
          */
         this.modelview.push(mat4.create());
         this.modelview.push(mat4.clone(this.modelview.peek()));
-        mat4.lookAt(this.modelview.peek(), vec3.fromValues(105, 140, 120), vec3.fromValues(80, 20, -27.5), vec3.fromValues(0, 1, 0));
-        //mat4.lookAt(this.modelview.peek(), vec3.fromValues(80, 100, -27.5), vec3.fromValues(80, 0, -27.5), vec3.fromValues(0, 0, -1));
+        switch (this.viewType) {
+            case ViewType.TurnTable:
+                    mat4.lookAt(this.modelview.peek(), vec3.fromValues(80 + (this.radius * Math.sin(this.time * 0.01)), 140, -27.5 + this.radius * Math.cos(this.time * 0.01)),
+                    vec3.fromValues(80, 20, -27.5), vec3.fromValues(0, 1, 0));
+                    break;
+            case ViewType.BirdsEye:
+                    mat4.lookAt(this.modelview.peek(), vec3.fromValues(80, 100, -27.5), vec3.fromValues(80, 0, -27.5), vec3.fromValues(0, 0, -1));
+                    break;
+            case ViewType.Front:
+                    mat4.lookAt(this.modelview.peek(), vec3.fromValues(100, 150, 160), vec3.fromValues(80, 20, -27.5), vec3.fromValues(0, 1, 0));
+                    break;
+            default:
+                    mat4.lookAt(this.modelview.peek(), vec3.fromValues(100, 150, 160), vec3.fromValues(80, 20, -27.5), vec3.fromValues(0, 1, 0));
+                    break;
+        }
+
+        
 
         this.gl.uniformMatrix4fv(this.shaderLocations.getUniformLocation("proj"), false, this.proj);
 
