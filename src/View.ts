@@ -237,6 +237,38 @@ export class View {
                                 {"translate":[0,12.5,0]}
                             ],
                             "child": ${this.drawMinaret([20, 40, -20], [1, 1, 1], [20, 20, -20], [1, 0, 1])}
+                        },
+                        {
+                            "type":"transform",
+                            "name":"mini-Minaret1-obj5",
+                            "transform":[
+                                {"translate":[10,10,0]}
+                            ],
+                            "child": ${this.drawMinaret([8, 30, -8], [0.5, 0.5, 0.5], [8, 10, -8], [1, 0, 1])}
+                        },
+                        {
+                            "type":"transform",
+                            "name":"mini-Minaret2-obj5",
+                            "transform":[
+                                {"translate":[0,10,-10]}
+                            ],
+                            "child": ${this.drawMinaret([8, 30, -8], [0.5, 0.5, 0.5], [8, 10, -8], [1, 0, 1])}
+                        },
+                        {
+                            "type":"transform",
+                            "name":"mini-Minaret1-obj5",
+                            "transform":[
+                                {"translate":[-10,10,0]}
+                            ],
+                            "child": ${this.drawMinaret([8, 30, -8], [0.5, 0.5, 0.5], [8, 10, -8], [1, 0, 1])}
+                        },
+                        {
+                            "type":"transform",
+                            "name":"mini-Minaret1-obj5",
+                            "transform":[
+                                {"translate":[0,10,10]}
+                            ],
+                            "child": ${this.drawMinaret([8, 30, -8], [0.5, 0.5, 0.5], [8, 10, -8], [1, 0, 1])}
                         }
                         ]
                     }
@@ -248,7 +280,7 @@ export class View {
     private drawMinaret(cylinderScale: number[], cylinderColor: number[], coneScale: number[], coneColor: number[]): string {
         return `{
             "type":"group",
-            "children":[${this.objectJson("box", cylinderScale, cylinderColor)},
+            "children":[${this.objectJson("cylinder", cylinderScale, cylinderColor)},
                 {
                     "type":"transform",
                     "name":"cone-obj1",
@@ -262,31 +294,49 @@ export class View {
     }
 
     private objectJson (type: string, scale: number[], color: number[]): string {
-        let addToHeight: number = 0;
+        let normalizeCenter = 0.25;
+        let normalizeYscale = 2
         if (type === "box") {
-            addToHeight = scale[1] / 2;
+            normalizeCenter = 0.5
+            normalizeYscale = 1
         }
-        return `
-            {
-                "type":"transform",
-                "transform":[
-                    {"translate":[0,${addToHeight},0]}
-                ],
-                "child": {
-                            "type":"transform",
-                            "transform":[
-                                {"scale":[${scale[0]}, ${scale[1]}, ${scale[2]}]}
-                            ],
-                            "child": 
-                                {
-                                    "type":"object",
-                                    "instanceof":"${type}",
-                                    "material": {
-                                        "color":[${color[0]}, ${color[1]}, ${color[2]}]
-                                    }
-                                }
-                        }
-            }`
+        return `{
+            "type":"transform",
+            "transform":[
+                {"scale":[${scale[0]}, ${normalizeYscale * scale[1]}, ${scale[2]}]},
+                {"translate":[0,${normalizeCenter},0]}
+            ],
+            "child": {
+                    "type":"object",
+                    "instanceof":"${type}",
+                    "material": {
+                        "color":[${color[0]}, ${color[1]}, ${color[2]}]
+                    }
+            }
+            
+        }`
+        
+        // `
+        //     {
+        //         "type":"transform",
+        //         "transform":[
+        //             {"translate":[0,${addToHeight},0]}
+        //         ],
+        //         "child": {
+        //                     "type":"transform",
+        //                     "transform":[
+        //                         {"scale":[${scale[0]}, ${scale[1]}, ${scale[2]}]}
+        //                     ],
+        //                     "child": 
+        //                         {
+        //                             "type":"object",
+        //                             "instanceof":"${type}",
+        //                             "material": {
+        //                                 "color":[${color[0]}, ${color[1]}, ${color[2]}]
+        //                             }
+        //                         }
+        //                 }
+        //     }`
     } 
 
     
