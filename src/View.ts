@@ -189,7 +189,7 @@ export class View {
             "root":
             {
                 "type":"group",
-                "children":[${this.object1()}]
+                "children":[${this.object5()}]
 
             }
         }
@@ -209,19 +209,35 @@ export class View {
                     "transform":[
                         {"translate":[0,50,0]}
                     ],
+                    "child": ${this.drawMinaret([10, 5, -10], [1, 1, 1], [10, 10, -10], [1, 0, 1])}
+                }
+            ]
+        }`
+    }
+
+    private object5(): string {
+        return `
+        {
+            "type":"group",
+            "children":[${this.objectJson("box", [25, 20, -25], [0.5, 0.5, 0.5])},
+                {
+                    "type":"transform",
+                    "name":"cylinder-obj5",
+                    "transform":[
+                        {"translate":[0,20,0]}
+                    ],
                     "child": 
                     {
                         "type":"group",
-                        "children":[
-                            {
-                                "type":"transform",
-                                "name":"cone-obj1",
-                                "transform":[
-                                    {"translate":[0,5,0]}
-                                ],
-                                "child": ${this.objectJson("cone", [10, 10, -10], [1, 0, 1])}
-                            },
-                            ${this.objectJson("cylinder", [10, 5, -10], [1, 1, 1])}
+                        "children":[${this.objectJson("cylinder", [22, 25, -22], [1, 0, 0])},
+                        {
+                            "type":"transform",
+                            "name":"mainMinaret-obj5",
+                            "transform":[
+                                {"translate":[0,12.5,0]}
+                            ],
+                            "child": ${this.drawMinaret([20, 40, -20], [1, 1, 1], [20, 20, -20], [1, 0, 1])}
+                        }
                         ]
                     }
                 }
@@ -229,34 +245,47 @@ export class View {
         }`
     }
 
-    private object3 (scale: number[], color: number[]): string {
-        return `
-        {
-            "type":"transform",
-            "name":"box-obj3",
-            "transform":[
-                {"translate":[0,10,0]}
-            ],
-            "child": ${this.objectJson("box", [15, 20, -35], [0.5, 0.5, 0.5])}
+    private drawMinaret(cylinderScale: number[], cylinderColor: number[], coneScale: number[], coneColor: number[]): string {
+        return `{
+            "type":"group",
+            "children":[${this.objectJson("box", cylinderScale, cylinderColor)},
+                {
+                    "type":"transform",
+                    "name":"cone-obj1",
+                    "transform":[
+                        {"translate":[0,${cylinderScale[1]},0]}
+                    ],
+                    "child": ${this.objectJson("cone", coneScale, coneColor)}
+                }
+            ]
         }`
     }
 
     private objectJson (type: string, scale: number[], color: number[]): string {
-        console.log(scale[1] / 2)
+        let addToHeight: number = 0;
+        if (type === "box") {
+            addToHeight = scale[1] / 2;
+        }
         return `
             {
                 "type":"transform",
                 "transform":[
-                    {"translate":[0,${scale[1] / 2},0]},
-                    {"scale":[${scale[0]}, ${scale[1]}, ${scale[2]}]}
+                    {"translate":[0,${addToHeight},0]}
                 ],
                 "child": {
-                    "type":"object",
-                    "instanceof":"${type}",
-                    "material": {
-                        "color":[${color[0]}, ${color[1]}, ${color[2]}]
-                    }
-                }
+                            "type":"transform",
+                            "transform":[
+                                {"scale":[${scale[0]}, ${scale[1]}, ${scale[2]}]}
+                            ],
+                            "child": 
+                                {
+                                    "type":"object",
+                                    "instanceof":"${type}",
+                                    "material": {
+                                        "color":[${color[0]}, ${color[1]}, ${color[2]}]
+                                    }
+                                }
+                        }
             }`
     } 
 
@@ -478,7 +507,7 @@ export class View {
         this.modelview.push(mat4.create());
         this.modelview.push(mat4.clone(this.modelview.peek()));
         mat4.lookAt(this.modelview.peek(), vec3.fromValues(100, 100, 160), vec3.fromValues(0, 0, 0), vec3.fromValues(0, 1, 0));
-
+        //mat4.lookAt(this.modelview.peek(), vec3.fromValues(0, 100, 0), vec3.fromValues(0, 0, 0), vec3.fromValues(0, 0, -1));
 
         this.gl.uniformMatrix4fv(this.shaderLocations.getUniformLocation("proj"), false, this.proj);
 
